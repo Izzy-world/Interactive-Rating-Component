@@ -1,0 +1,191 @@
+/* ===== Variables ===== */
+:root {
+  --orange: hsl(25, 97%, 53%);
+  --white: hsl(0, 100%, 100%);
+  --light-grey: hsl(217, 12%, 63%);
+  --medium-grey: hsl(216, 12%, 54%);
+  --dark-blue: hsl(213, 19%, 18%);
+  --very-dark-blue: hsl(216, 12%, 8%);
+  --error-red: hsl(0, 100%, 50%);
+}
+
+/* ===== Base Styles ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Overpass', sans-serif;
+  background: var(--very-dark-blue);
+  color: var(--white);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ===== Card Styles ===== */
+.card {
+  background: var(--dark-blue);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  max-width: 25rem;
+  margin: 1rem;
+  transition: all 0.3s ease;
+}
+
+.star-icon {
+  background: rgba(124, 135, 152, 0.1);
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  color: var(--light-grey);
+  margin-bottom: 1.5rem;
+}
+
+/* ===== Animations ===== */
+@keyframes backInDown {
+  0% {
+    transform: translateY(-1200px) scale(0.7);
+    opacity: 0.7;
+  }
+  80% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceInRight {
+  0% {
+    transform: translateX(600px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-20px);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.rating-title {
+  animation: backInDown 1s ease-out both;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+.thank-you-title {
+  animation: bounceInRight 1s ease-out both;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+/* ===== Rating Buttons ===== */
+.ratings {
+  display: flex;
+  justify-content: space-between;
+  margin: 1.5rem 0;
+}
+
+.rating-btn {
+  background: rgba(124, 135, 152, 0.1);
+  color: var(--medium-grey);
+  border: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rating-btn:hover {
+  background: var(--orange);
+  color: var(--dark-blue);
+}
+
+.rating-btn.selected {
+  background: var(--white);
+  color: var(--dark-blue);
+}
+
+/* ===== Submit Button & Error ===== */
+#submit-btn {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 2rem;
+  border: none;
+  background: var(--orange);
+  color: var(--dark-blue);
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#submit-btn:hover {
+  background: var(--white);
+  color: var(--dark-blue);
+}
+
+#error-msg {
+  color: var(--error-red);
+  text-align: center;
+  margin: -0.5rem 0 1rem 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* ===== Thank You Card ===== */
+#thank-you-card {
+  text-align: center;
+}
+
+.selected-rating {
+  background: rgba(124, 135, 152, 0.1);
+  color: var(--orange);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  display: inline-block;
+  margin: 1.5rem 0;
+}
+
+.rate-again {
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s;
+}
+
+.rate-again:hover {
+  background: var(--white);
+  color: var(--dark-blue);
+}
+
+/* ===== Utility Classes ===== */
+.hidden {
+  display: none;
+}

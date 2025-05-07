@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Rating Component</title>
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="/images/favicon-32x32.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <!-- Rating State -->
+    <div class="card" id="rating-card">
+      <div class="star-icon">
+        <img src="/images/icon-star.svg" alt="">
+      </div>
+      <h1 class="rating-title">How did we do?</h1>
+      <p>Please let us know how we did with your support request. All feedback is appreciated to help us improve our offering!</p>
+      
+      <form id="rating-form">
+        <div class="ratings" role="radiogroup">
+          <button type="button" class="rating-btn" data-rating="1">1</button>
+          <button type="button" class="rating-btn" data-rating="2">2</button>
+          <button type="button" class="rating-btn" data-rating="3">3</button>
+          <button type="button" class="rating-btn" data-rating="4">4</button>
+          <button type="button" class="rating-btn" data-rating="5">5</button>
+        </div>
+        <p id="error-msg" class="hidden">Please select a rating!</p>
+        <button type="submit" id="submit-btn">Submit</button>
+      </form>
+    </div>
+
+    <!-- Thank You State -->
+    <div class="card hidden" id="thank-you-card">
+      <img src="/images/illustration-thank-you.svg" alt="Thank you illustration" class="thank-you-img">
+      <p class="selected-rating">You selected <span id="chosen-rating">5</span> out of 5</p>
+      <h1 class="thank-you-title">Thank you!</h1>
+      <p>We appreciate you taking the time to give a rating. If you ever need more support, don't hesitate to get in touch!</p>
+      <button id="rate-again-btn" class="rate-again">Rate Again</button>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
