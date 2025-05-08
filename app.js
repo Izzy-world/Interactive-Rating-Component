@@ -10,59 +10,95 @@ document.addEventListener("DOMContentLoaded", () => {
   const ratingTitle = document.querySelector(".rating-title");
   const thankYouTitle = document.querySelector(".thank-you-title");
 
+  // State
   let selectedRating = null;
+  let isSubmitting = false;
 
   // Initialize animations
-  ratingTitle.style.animation = "backInDown 1s ease-out both";
-
-  // Rating Selection
-  ratingButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      ratingButtons.forEach(btn => {
-        btn.classList.remove("selected");
-        btn.setAttribute("aria-selected", "false");
-      });
-      button.classList.add("selected");
-      button.setAttribute("aria-selected", "true");
-      selectedRating = button.dataset.rating;
-      errorMsg.classList.add("hidden");
-    });
-  });
-
-  // Form Submission
-  ratingForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    
-    if (!selectedRating) {
-      errorMsg.classList.remove("hidden");
-      return;
-    }
-
-    chosenRatingSpan.textContent = selectedRating;
-    ratingCard.classList.add("hidden");
-    thankYouCard.classList.remove("hidden");
-    
-    // Reset animation to trigger it again
+  const initAnimations = () => {
+    ratingTitle.style.animation = "backInDown 1s ease-out both";
     thankYouTitle.style.animation = "none";
-    void thankYouTitle.offsetWidth; // Trigger reflow
-    thankYouTitle.style.animation = "bounceInRight 1s ease-out both";
-  });
+  };
 
-  // Rate Again Button
-  rateAgainBtn.addEventListener("click", () => {
+  // Reset rating selection
+  const resetRatingSelection = () => {
     ratingButtons.forEach(btn => {
       btn.classList.remove("selected");
       btn.setAttribute("aria-selected", "false");
+      btn.style.backgroundColor = "";
+      btn.style.color = "";
     });
     selectedRating = null;
+  };
+
+  // Handle rating selection
+  const handleRatingSelection = (button) => {
+    resetRatingSelection();
+    button.classList.add("selected");
+    button.setAttribute("aria-selected", "true");
+    selectedRating = button.dataset.rating;
+    errorMsg.classList.add("hidden");
+  };
+
+  // Submit form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (isSubmitting) return;
+    
+    if (!selectedRating) {
+      errorMsg.classList.remove("hidden");
+      // Add shake animation to error message
+      errorMsg.style.animation = "shake 0.5s ease-in-out";
+      setTimeout(() => errorMsg.style.animation = "", 500);
+      return;
+    }
+
+    isSubmitting = true;
+    chosenRatingSpan.textContent = selectedRating;
+    
+    // Transition between cards
+    ratingCard.classList.add("hidden");
+    setTimeout(() => {
+      thankYouCard.classList.remove("hidden");
+      resetAnimation(thankYouTitle, "bounceInRight 1s ease-out both");
+      isSubmitting = false;
+    }, 300); // Match this with your CSS transition duration
+  };
+
+  // Reset animation helper
+  const resetAnimation = (element, animation) => {
+    element.style.animation = "none";
+    void element.offsetWidth; // Trigger reflow
+    element.style.animation = animation;
+  };
+
+  // Rate again functionality
+  const handleRateAgain = () => {
     thankYouCard.classList.add("hidden");
-    ratingCard.classList.remove("hidden");
-    
-    // Reset animation to trigger it again
-    ratingTitle.style.animation = "none";
-    void ratingTitle.offsetWidth; // Trigger reflow
-    ratingTitle.style.animation = "backInDown 1s ease-out both";
-    
-    ratingButtons[0].focus();
+    setTimeout(() => {
+      ratingCard.classList.remove("hidden");
+      resetAnimation(ratingTitle, "backInDown 1s ease-out both");
+      resetRatingSelection();
+      ratingButtons[0].focus();
+    }, 300);
+  };
+
+  // Event Listeners
+  ratingButtons.forEach(button => {
+    button.addEventListener("click", () => handleRatingSelection(button));
+    // Keyboard accessibility
+    button.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleRatingSelection(button);
+      }
+    });
   });
+
+  ratingForm.addEventListener("submit", handleSubmit);
+  rateAgainBtn.addEventListener("click", handleRateAgain);
+
+  // Initialize
+  initAnimations();
 });

@@ -98,7 +98,7 @@ p {
   font-size: 1.75rem;
 }
 
-/* ===== Rating Buttons ===== */
+/* ===== Rating Buttons - Fixed States ===== */
 .ratings {
   display: flex;
   justify-content: space-between;
@@ -106,6 +106,7 @@ p {
 }
 
 .rating-btn {
+  /* Default State */
   background: rgba(124, 135, 152, 0.1);
   color: var(--medium-grey);
   border: none;
@@ -114,17 +115,26 @@ p {
   border-radius: 50%;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
-.rating-btn:hover {
+/* Hover State (only for non-selected buttons) */
+.rating-btn:hover:not(.selected) {
   background: var(--orange);
   color: var(--dark-blue);
 }
 
+/* Selected State */
 .rating-btn.selected {
   background: var(--white);
   color: var(--dark-blue);
+  /* Disable hover effects on selected button */
+  pointer-events: none;
+}
+
+/* Active State (when clicking) */
+.rating-btn:active {
+  transform: scale(0.95);
 }
 
 /* ===== Submit Button & Error ===== */
@@ -138,12 +148,16 @@ p {
   font-weight: 700;
   letter-spacing: 0.1rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 #submit-btn:hover {
   background: var(--white);
   color: var(--dark-blue);
+}
+
+#submit-btn:active {
+  transform: scale(0.98);
 }
 
 #error-msg {
@@ -170,14 +184,14 @@ p {
 
 .rate-again {
   background: var(--orange);
-  color: var(--white);
+  color: var(--dark-blue);
   border: none;
   padding: 0.8rem 1.5rem;
   border-radius: 2rem;
   font-weight: 700;
   cursor: pointer;
   margin-top: 1rem;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
 .rate-again:hover {
@@ -185,7 +199,12 @@ p {
   color: var(--dark-blue);
 }
 
+.rate-again:active {
+  transform: scale(0.98);
+}
+
 /* ===== Utility Classes ===== */
 .hidden {
   display: none;
+  opacity: 0;
 }
